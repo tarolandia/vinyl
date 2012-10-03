@@ -1,1 +1,1 @@
-require "api-acl/version"
+require 'api-acl/base'
