@@ -13,8 +13,10 @@ module ACL
     def self.method_missing(*args)
       if args.length == 2 then #set value
         put ({args[0].to_s.chomp('=').to_sym => args[1]})
-      else #return value
-        return get(args.first)
+      elsif args.length == 1 #return value
+        return get(args.first) || super
+      else
+        super
       end
     end
 
