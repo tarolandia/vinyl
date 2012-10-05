@@ -10,6 +10,10 @@ module ACL
       controller.variables[value]
     end
 
+    def self.controller
+      @access_controller ||=AccessController.new
+    end
+
     def self.method_missing(*args)
       if args.length == 2 then #set value
         put ({args[0].to_s.chomp('=').to_sym => args[1]})
@@ -18,10 +22,6 @@ module ACL
       else
         super
       end
-    end
-
-    def self.controller
-      @access_controller ||=AccessController.new
     end
 
     class AccessController
