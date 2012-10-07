@@ -1,7 +1,9 @@
 module ACL
   module Rules
     module Collection
-      
+     
+      class InvalidAclRule < StandardError; end
+
       def self.included(base)
         base.extend(ClassMethods)
       end
@@ -10,9 +12,20 @@ module ACL
         @@acl_routes_collection = {}
 
         def when_route(route, *args) 
-          method = args[0][:with_method]
-          access_level = args[0][:get_access_level]
-          validators = args[0][:if_pass]
+          begin
+            method = args[0][:with_method]
+            access_level = args[0][:get_access_level]
+            validators = args[0][:if_pass]
+            if(route.empty? || method.empty? || access_level.to_s.empty?)
+              raise InvalidAclRule, "ACL rule is invalid"
+            end
+          rescue NoMethodError => e
+            raise InvalidAclRule, "ACL rule is invalid"
+          rescue InvalidAclRule => e
+            puts e.message
+            puts e.backtrace
+          end
+
           @@acl_routes_collection[route] ||= Hash.new
           @@acl_routes_collection[route][method] ||= Hash.new
           @@acl_routes_collection[route][method][access_level] = validators
