@@ -17,6 +17,7 @@ end
 ACL.configure do |config|
   config.force_access_control = true
   config.global_validators = ['global']
+  config.api_acl_mode = ACL::Configuration::STRATEGY_DESCENDING #this is the default value
 end
 
 MyRule.new #Use defined validators
