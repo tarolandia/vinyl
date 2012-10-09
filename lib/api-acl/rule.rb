@@ -31,7 +31,7 @@ module ACL
           @@acl_routes_collection[route][method][access_level] = validators
         end
 
-        def acl_routes_collection
+        def self.acl_routes_collection
           @@acl_routes_collection
         end
       end
