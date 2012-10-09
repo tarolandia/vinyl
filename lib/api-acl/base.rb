@@ -28,7 +28,7 @@ module ACL
       @@defaults
     end
 
-    def intialize
+    def initialize
       @@defaults.each_pair{|k,v| self.send("#{k}=",v)}
     end
   end
