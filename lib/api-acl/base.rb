@@ -16,13 +16,23 @@ module ACL
   class Configuration
 
     attr_accessor :api_acl_file, :api_acl_mode, :force_access_control, :global_validators
-    
+    STRATEGY_DESCENDING = 1
+    STRATEGY_ASCENDING = 2
+
     @@defaults = {
       :api_acl_file => 'config/api_acl.rb',
-      :api_acl_mode => 'default',
+      :api_acl_mode => STRATEGY_DESCENDING,
       :force_access_control => false,
       :global_validators => Array.new
     }
+
+    def validators_iterate_strategy
+      if(@api_acl_mode == STRATEGY_DESCENDING) then
+        return 'reverse_each'
+      else
+        return 'each'
+      end
+    end
 
     def self.defaults
       @@defaults

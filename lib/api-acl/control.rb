@@ -8,7 +8,7 @@ module ACL
       end
       keys = validators_collection.keys.sort
       highest_level = 0
-      keys.reverse_each do |access_level|
+      keys.send("#{ACL::config.validators_iterate_strategy}") do |access_level|
         pass = ACL::Validators.run_validators(validators_collection[access_level])
         if (pass==true)
           highest_level = access_level
