@@ -1,6 +1,23 @@
 module ACL
   module Control
     
+    def self.check_level(route,method)
+      validators_collection = Rules::Collection::ClassMethods.acl_routes_collection[route][method]
+      if validators_collection.nil? || validators_collection.empty? then
+        return 0
+      end
+      keys = validators_collection.keys.sort
+      highest_level = 0
+      keys.reverse_each do |access_level|
+        pass = ACL::Validators.run_validators(validators_collection[access_level])
+        if (pass==true)
+          highest_level = access_level
+          break
+        end
+      end
+      return highest_level
+    end
+
     def self.put(variable)
       controller.put(variable)
       return self
