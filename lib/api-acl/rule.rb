@@ -1,7 +1,7 @@
 module ACL
 
   def self.when_route(route, *args)
-    Rule.new(route, args[0])
+    Rule.add(route, args[0])
   end
 
   def self.acl_routes_collection
@@ -11,7 +11,7 @@ module ACL
   class Rule
     @@acl_routes_collection = {}
 
-    def initialize(route, *args) 
+    def self.add(route, *args) 
       begin
         method = args[0][:with_method]
         access_level = args[0][:get_access_level]
