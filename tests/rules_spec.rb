@@ -1,5 +1,3 @@
-require_relative 'spec_helper.rb'
-
 describe ACL::Rule do
 
   it "should add route to ACL" do
