@@ -1,29 +1,33 @@
 module ACL
 
-  @@prefix = "validator_"#use prefixs to avoid collisions betweeen variables and methods names
-
   def self.add_validator(name,block)
-    Validators.module_eval{define_singleton_method(@@prefix + name,block)}
+    Validators.module_eval{define_singleton_method(Validators.prefix + name,block)}
   end
 
   def self.add_global_validator(name,block)
-    Validators.module_eval{define_singleton_method(@@prefix + name,block)}
+    Validators.module_eval{define_singleton_method(Validators.prefix + name,block)}
     global_validators << name
   end
 
   def self.execute(name)
-    Validators.send(@@prefix + name)
-  end
-
-  def self.prefix
-    @@prefix
+    Validators.send(Validators.prefix + name)
   end
 
   def self.global_validators
-    @@global_validators ||= Array.new
+    Validators.global_validators
   end
 
   module Validators
+    
+    @@prefix = "validator_"#use prefixs to avoid collisions betweeen variables and methods names
+    
+    def self.prefix
+      @@prefix
+    end
+    
+    def self.global_validators
+      @@global_validators ||= Array.new
+    end
 
     def self.run_validators(validators)
       validators = validators + ACL.global_validators
@@ -31,7 +35,7 @@ module ACL
         return !ACL.config.force_access_control
       end
       validators.each do |method_name|
-        pass = ACL::Validators.send(ACL.prefix + method_name)
+        pass = ACL::Validators.send(prefix + method_name)
         if(pass == false) then
           return false
         end
