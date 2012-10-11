@@ -26,9 +26,9 @@ module ACL
   module Validators
 
     def self.run_validators(validators)
-      validators.concat(ACL.global_validators)
+      validators = validators + ACL.global_validators
       if validators.nil? || validators.empty? then
-        return true
+        return !ACL.config.force_access_control
       end
       validators.each do |method_name|
         pass = ACL::Validators.send(ACL.prefix + method_name)

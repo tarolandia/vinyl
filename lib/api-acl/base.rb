@@ -17,10 +17,12 @@ module ACL
     required_route = ACL::acl_routes_collection[route]
     required_route = Hash.new if required_route.nil?
     validators_to_call = required_route[method]
-    if((validators_to_call.nil? || validators_to_call.empty?) && global_validators.empty?) then
-      return ACL.config.force_access_control ? 0 : 1
-    elsif validators_to_call.nil? || validators_to_call.empty? then
-      validators_to_call = {1 => []} #No access level defined but global validators must be called
+    if (validators_to_call.nil? || validators_to_call.empty?) then
+      if (global_validators.empty?) then
+        return ACL.config.force_access_control ? 0 : 1
+      else
+        validators_to_call = {1 => []} #No access level defined but global validators must be called
+      end
     end
     keys = validators_to_call.keys.sort
     highest_level = 0
