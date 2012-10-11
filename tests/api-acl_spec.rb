@@ -16,6 +16,21 @@ describe "ACL Access control" do
     result = ACL.execute(global_validator_name)
     result.should be_true
   end
+
+  it "should fail with global validator" do
+    ACL::global_validator_return = false
+    ACL.add_global_validator("global_validator_name2",lambda{return global_validator_return})
+    access_level = ACL.check_level('test','POST')
+    access_level.should == 0
+  end
+  
+  it "should baypass global validator" do
+    access_level = ACL.bypass("global_validator_name2").check_level('test','POST')
+    access_level.should == 3
+    access_level = ACL.check_level('test','POST')
+    access_level.should == 0
+    ACL::global_validator_return = true
+  end
   
   it "should return grant access levels according to validators" do
     access_level = ACL.check_level('test','POST')

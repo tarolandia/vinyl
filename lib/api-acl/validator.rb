@@ -13,6 +13,11 @@ module ACL
     Validators.send(Validators.prefix + name)
   end
 
+  def self.bypass(names)
+    Validators.exclude_global_validator(names)
+    self
+  end
+
   def self.global_validators
     Validators.global_validators
   end
@@ -20,6 +25,7 @@ module ACL
   module Validators
     
     @@prefix = "validator_"#use prefixs to avoid collisions betweeen variables and methods names
+    @@exclusion_list = []
     
     def self.prefix
       @@prefix
@@ -29,8 +35,19 @@ module ACL
       @@global_validators ||= Array.new
     end
 
+    def self.exclude_global_validator(name)
+      name = ["#{name}"] if name.instance_of? String
+      @@exclusion_list |= name
+    end
+
+
+    def self.clean_exclusion_list
+      @@exclusion_list = Array.new
+    end
+
     def self.run_validators(validators)
-      validators = validators + ACL.global_validators
+      validators = validators + (ACL.global_validators - @@exclusion_list)
+      clean_exclusion_list
       if validators.nil? || validators.empty? then
         return !ACL.config.force_access_control
       end
