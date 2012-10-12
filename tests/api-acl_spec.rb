@@ -24,7 +24,7 @@ describe "ACL Access control" do
     access_level.should == 0
   end
   
-  it "should baypass global validator" do
+  it "should bypass global validator" do
     access_level = ACL.bypass("global_validator_name2").check_level('test','POST')
     access_level.should == 3
     access_level = ACL.check_level('test','POST')
