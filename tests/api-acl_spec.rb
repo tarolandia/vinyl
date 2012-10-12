@@ -1,5 +1,18 @@
 describe "ACL Access control" do
 
+  it "should deny access to non configured routes if force_access_control is enabled" do
+    ACL::configure do |config|
+      config.force_access_control = false
+    end    
+    access_level = ACL.check_level('fake_route','GET')
+    access_level.should == 1
+    ACL::configure do |config|
+      config.force_access_control = true
+    end    
+    access_level = ACL.check_level('fake_route','GET')
+    access_level.should == 0
+  end
+
   it "should force access control in abscence of validators" do
     access_level = ACL.check_level('test','POST')
     access_level.should == 2
