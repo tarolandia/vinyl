@@ -40,13 +40,14 @@ module ACL
 
   class Configuration
 
-    attr_accessor :api_acl_mode, :force_access_control
+    attr_accessor :api_acl_mode, :force_access_control, :warn_on_missing_validators
     STRATEGY_DESCENDING = 1 #Check for validators starting on the highest access level
     STRATEGY_ASCENDING = 2  #Check for validators starting on the lowest access level
 
     @@defaults = {
       :api_acl_mode => STRATEGY_DESCENDING,
-      :force_access_control => false
+      :force_access_control => false,
+      :warn_on_missing_validators => true
     }
 
     def validators_iterate_strategy

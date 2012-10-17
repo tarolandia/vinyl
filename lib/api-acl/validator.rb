@@ -64,7 +64,7 @@ module ACL
       if (ACL::controller.variables.include?(args[0])) then
         return ACL::get(args[0])
       else
-        STDOUT.puts "Warning: missing method #{args[0]}, Validator defaults to false"
+        STDOUT.puts "Warning: missing method #{args[0]}, Validator defaults to false" if ACL.config.warn_on_missing_validators
         return false
       end
     end
