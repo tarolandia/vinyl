@@ -3,6 +3,7 @@ require 'api-acl'
 ACL::configure do |config|
   config.api_acl_mode = ACL::Configuration::STRATEGY_DESCENDING
   config.force_access_control = true #Deny access if no validators are given for a route/method combination and no global validators exist
+  config.warn_on_missing_validators = true #Display a warning on STDOUT when calling a missing validator
 end
 
 #Define variables
