@@ -1,8 +1,7 @@
 module ACL
 
   def self.configure
-    yield @config = Configuration.new
-    ACL.config = @config
+    yield config
   end
 
   def self.config=(config)
