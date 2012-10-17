@@ -9,6 +9,10 @@ module ACL
     controller.variables[value]
   end
 
+  def self.reset_variables
+    controller.variables.clear
+  end
+
   def self.controller
     @@user_variables ||=UserVariables.new
   end

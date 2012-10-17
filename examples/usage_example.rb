@@ -6,6 +6,8 @@ ACL::configure do |config|
   config.warn_on_missing_validators = true #Display a warning on STDOUT when calling a missing validator
 end
 
+#Clear previous registered variables
+ACL::reset_variables
 #Define variables
 ACL::some_arbitrary_value = true
 

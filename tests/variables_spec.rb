@@ -5,6 +5,16 @@ describe ACL::UserVariables do
     $hash_variable = Hash.new
   end
 
+  it "should define some variables and reset them all" do
+    ACL.here_is_one_variable = "Some value"
+    ACL.some_arbitrary_value = true
+    ACL.string_value = $string_variable
+    ACL.hash_value = $hash_variable
+    ACL.controller.variables.length.should == 4
+    ACL.reset_variables
+    ACL.controller.variables.length.should == 0
+  end
+
   it "should add some variables to be used by validators" do
     ACL.some_arbitrary_value = true
     ACL.string_value = $string_variable
