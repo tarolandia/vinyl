@@ -17,4 +17,9 @@ describe ACL::UserVariables do
     ACL.string_value.should eq $string_variable
     ACL.hash_value.should == $hash_variable
   end
+
+  it "should be able to assign and retrieve null values" do
+    ACL.variable_im_setting_nil = nil
+    ACL.variable_im_setting_nil.should be_nil
+  end
 end

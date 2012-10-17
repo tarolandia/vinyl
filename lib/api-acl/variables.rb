@@ -17,7 +17,7 @@ module ACL
     if args.length == 2 then #set value
       ACL::put ({args[0].to_s.chomp('=').to_sym => args[1]})
     elsif args.length == 1 #return value
-      return ACL::get(args.first) || super
+      return ACL::get(args.first)
     else
       super
     end
