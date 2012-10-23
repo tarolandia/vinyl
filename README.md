@@ -10,7 +10,7 @@ It works by analizing a series of validators defined by you and returning a numb
 
 ## What is it useful for?
 
-This gem is useful when you need to control the output depending on who wants to access to a resource. 
+This gem is useful when you need to control the output depending on who wants to access to a resource.
 For example: user A wants to get user B's profile.
 If A == B, A have full access to data
 If A is friend of B, A can see private data but not config data
