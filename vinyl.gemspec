@@ -1,14 +1,14 @@
 $:.push File.expand_path("../lib", __FILE__)
-require "api-acl/version"
+require "vinyl/version"
 
 Gem::Specification.new do |gem|
-  gem.name          = "api-acl"
+  gem.name          = "vinyl"
   gem.authors       = ["Federico Saravia Barrantes", "Lautaro Orazi"]
-  gem.email         = ["orazile@gmail.com"]
-  gem.description   = %q{Custom ACL for APIs}
-  gem.summary       = %q{Custom ACL for APIs}
+  gem.email         = ["vinyl.dev@gmail.com"]
+  gem.description   = %q{Custom access level for resources}
+  gem.summary       = %q{Custom access level for resources}
   gem.homepage      = ""
-  gem.version       = ACL::VERSION
+  gem.version       = Vinyl::VERSION
 
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

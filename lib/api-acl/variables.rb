@@ -1,4 +1,4 @@
-module ACL
+module Vinyl
 
   def self.put(variable)
     controller.put(variable)
@@ -19,9 +19,9 @@ module ACL
 
   def self.method_missing(*args)
     if args.length == 2 then #set value
-      ACL::put ({args[0].to_s.chomp('=').to_sym => args[1]})
+      Vinyl::put ({args[0].to_s.chomp('=').to_sym => args[1]})
     elsif args.length == 1 #return value
-      return ACL::get(args.first)
+      return Vinyl::get(args.first)
     else
       super
     end

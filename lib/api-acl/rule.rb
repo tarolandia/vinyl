@@ -1,4 +1,4 @@
-module ACL
+module Vinyl
 
   def self.when_route(route, *args)
     Rule.add(route, args[0])
@@ -28,10 +28,10 @@ module ACL
         access_level = args[0][:get_access_level]
         validators = args[0][:if_pass]
         if(route.empty? || method.empty? || access_level.to_s.empty?) then
-          raise InvalidAclRule, "ACL rule is invalid"
+          raise InvalidAclRule, "Vinyl.rule is invalid"
         end
       rescue NoMethodError => e
-        raise InvalidAclRule, "ACL rule is invalid"
+        raise InvalidAclRule, "Vinyl.rule is invalid"
       rescue InvalidAclRule => e
         puts e.message
         puts e.backtrace

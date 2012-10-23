@@ -1,4 +1,4 @@
-module ACL
+module Vinyl
 
   def self.configure
     yield config
@@ -13,25 +13,25 @@ module ACL
   end
 
   def self.check_level(route,method)
-    required_route = ACL::acl_routes_collection[route]
+    required_route = Vinyl::acl_routes_collection[route]
     required_route = Hash.new if required_route.nil?
     validators_to_call = required_route[method]
     if (validators_to_call.nil? || validators_to_call.empty?) then
       if (global_validators.empty?) then
-        return ACL.config.force_access_control ? 0 : 1
+        return Vinyl.config.force_access_control ? 0 : 1
       else
         validators_to_call = {1 => []} #No access level defined but global validators must be called
       end
     end
     keys = validators_to_call.keys.sort
     highest_level = 0
-    keys.send("#{ACL::config.validators_iterate_strategy}") do |access_level|
-      pass = ACL::Validators.run_validators(validators_to_call[access_level])
+    keys.send("#{Vinyl::config.validators_iterate_strategy}") do |access_level|
+      pass = Vinyl::Validators.run_validators(validators_to_call[access_level])
       if (pass==true) then
         highest_level = access_level
-        break if ACL::config.api_acl_mode == ACL::Configuration::STRATEGY_DESCENDING #Already on the highest level
+        break if Vinyl::config.api_acl_mode == Vinyl::Configuration::STRATEGY_DESCENDING #Already on the highest level
       elsif (pass==false)
-        break if ACL::config.api_acl_mode == ACL::Configuration::STRATEGY_ASCENDING #Do not check for higher levels
+        break if Vinyl::config.api_acl_mode == Vinyl::Configuration::STRATEGY_ASCENDING #Do not check for higher levels
       end
     end
     return highest_level

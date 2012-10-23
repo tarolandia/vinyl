@@ -1,19 +1,19 @@
 describe "Validators" do
 
-  it "should add some validators to ACL" do
-    ACL.add_validator('validator', lambda{
+  it "should add some validators to Vinyl. do
+    Vinyl.add_validator('validator', lambda{
       return some_arbitrary_value && hash_value == Hash.new
       })
-    ACL.execute('validator').should be_true
-    ACL.add_validator('bad_guy', lambda{
+    Vinyl.execute('validator').should be_true
+    Vinyl.add_validator('bad_guy', lambda{
       return false
       })
-    ACL.execute('bad_guy').should be_false
+    Vinyl.execute('bad_guy').should be_false
   end
 
   it "should return nil if there has been defined a variable with nil value" do
-    ACL.some_nil_variable = nil
-    ACL::Validators.some_nil_variable.should be_nil
-    ACL::Validators.non_set_value.should be_false
+    Vinyl.some_nil_variable = nil
+    Vinyl::Validators.some_nil_variable.should be_nil
+    Vinyl::Validators.non_set_value.should be_false
   end
 end
