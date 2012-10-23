@@ -1,7 +1,7 @@
 # Vinyl
 **_Access Level for him and her_**
 
-_by: Federico Saravia Barrantes and Lautaro Orazi_
+_by: Federico Saravia Barrantes @fsaravia and Lautaro Orazi @tarolandia_
 
 ## Introduction
 
