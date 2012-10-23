@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["vinyl.dev@gmail.com"]
   gem.description   = %q{Custom access level for resources}
   gem.summary       = %q{Custom access level for resources}
-  gem.homepage      = ""
+  gem.homepage      = "http://tarolandia.github.com/vinyl/"
   gem.version       = Vinyl::VERSION
 
   gem.files         = `git ls-files`.split("\n")
