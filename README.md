@@ -5,7 +5,7 @@ _by: Federico Saravia Barrantes and Lautaro Orazi_
 
 ## Introduction
 
-"Vinyl” is a simple gem that allows developer to define different access levels for a resource and a serie of local and global validators to gain access to those levels.
+"Vinyl" is a simple gem that allows developer to define different access levels for a resource and a serie of local and global validators to gain access to those levels.
 It works by analizing a series of validators defined by you and returning a number representing the access level a particular request is able to reach.
 
 ## What is it useful for?
@@ -48,23 +48,23 @@ A rule defines the access level and the validators for a route/method combinatio
 
 ```ruby
 ACL.when_route 
-  ‘/api/route', 
-  :with_method => ‘POST|GET|PUT|DELETE',
+  '/api/route', 
+  :with_method => 'POST|GET|PUT|DELETE',
   :get_access_level => 1...n,
-  :if_pass => [‘validator1', ‘validator2', …, ‘validatorn']
+  :if_pass => ['validator1', 'validator2', …, 'validatorn']
 ```
 
 __Example:__
 ```ruby
-ACL.when_route ‘/profiles.json', 
-  :with_method => ‘GET', 
+ACL.when_route '/profiles.json', 
+  :with_method => 'GET', 
   :get_access_level => 1, 
-  :if_pass => [‘is_user']
+  :if_pass => ['is_user']
 
-ACL.when_route ‘/profiles.json', 
-  :with_method => ‘GET', 
+ACL.when_route '/profiles.json', 
+  :with_method => 'GET', 
   :get_access_level => 2, 
-  :if_pass => [‘is_admin']
+  :if_pass => ['is_admin']
 ```
 
 
@@ -75,7 +75,7 @@ There are two kind of validators: global and normal validators. All validators y
 Global validators will be applied to all rules defined. You can add a global validator using add_global_validator method:
 
 ```ruby
-ACL.add_global_validator("name_of_global_validator”, lambda {
+ACL.add_global_validator("name_of_global_validator", lambda {
   # your code here
   return true/false
 })
@@ -84,7 +84,7 @@ ACL.add_global_validator("name_of_global_validator”, lambda {
 Normal validators will be applied when a rule includes it into its validators list. Validators can be added using add_validator method:
 
 ```ruby
-ACL.add_validator("name_of_validator”, lambda {
+ACL.add_validator("name_of_validator", lambda {
   # your code here
   return true/false
 })
@@ -102,7 +102,7 @@ ACL.my_variable = variable_value
 Inside your validator:
 
 ```ruby
-ACL.add_validator("my_validator”, lambda {
+ACL.add_validator("my_validator", lambda {
   puts my_variable # will output variable_value
   return true/false
 })
@@ -120,19 +120,19 @@ ACL.reset_variables
 At this point you had defined your rules, validators and variables. Now you are ready to get call access level.
 
 ```ruby
-access_level = ACL.check_level(‘/call/route','call_method')
+access_level = ACL.check_level('/call/route','call_method')
 ```
 
 If you need to avoid a global validator you can use bypass method:
 
 ```ruby
-access_level = ACL.bypass("global_validator_name”).check_level(‘/call/route','call_method')
+access_level = ACL.bypass("global_validator_name").check_level('/call/route','call_method')
 ```
 
 or a list of them
 
 ```ruby
-access_level = ACL.bypass(["global_1”,”global_2”]).check_level(‘/call/route','call_method')
+access_level = ACL.bypass(["global_1","global_2"]).check_level('/call/route','call_method')
 ```
 
 Using bypass means exclude the validators only for the current check.
