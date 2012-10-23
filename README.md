@@ -136,3 +136,7 @@ access_level = Vinyl.bypass(["global_1","global_2"]).check_level('/call/route','
 ```
 
 Using bypass means exclude the validators only for the current check.
+
+## License
+
+See the `UNLICENSE` file included with this gem distribution.
