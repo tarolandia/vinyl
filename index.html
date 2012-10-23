@@ -58,7 +58,7 @@ It works by analizing a series of validators defined by you and returning a numb
 <h2>Basic Config</h2>
 
 <div class="highlight"><pre>  <span class="no">require</span> <span class="s1">'vinyl'</span>
-<span class="no">Vinyl</span><span class="o">::</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="no">Vinyl</span><span class="o">::</span><span class="n">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
     <span class="n">config</span><span class="o">.</span><span class="n">api_acl_mode</span> <span class="o">=</span> <span class="no">Vinyl</span><span class="o">::</span><span class="no">Configuration</span><span class="o">::</span><span class="no">STRATEGY_DESCENDING</span>
     <span class="n">config</span><span class="o">.</span><span class="n">force_access_control</span> <span class="o">=</span> <span class="kp">true</span> 
     <span class="n">config</span><span class="o">.</span><span class="n">warn_on_missing_validators</span> <span class="o">=</span> <span class="kp">true</span> 
