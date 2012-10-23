@@ -1,6 +1,6 @@
 describe "Validators" do
 
-  it "should add some validators to Vinyl. do
+  it "should add some validators to Vinyl" do
     Vinyl.add_validator('validator', lambda{
       return some_arbitrary_value && hash_value == Hash.new
       })

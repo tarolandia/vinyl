@@ -1,4 +1,4 @@
-require 'api-acl'
+require 'vinyl'
 #Configuration:
 Vinyl::configure do |config|
   config.api_acl_mode = Vinyl::Configuration::STRATEGY_DESCENDING

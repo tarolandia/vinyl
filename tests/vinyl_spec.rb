@@ -23,7 +23,7 @@ describe "Vinyl.Access control" do
     access_level.should == 3
   end
 
-  it "should add a global validator to Vinyl. do
+  it "should add a global validator to Vinyl" do
     global_validator_name = "global_validator"
     Vinyl.add_global_validator(global_validator_name,lambda{return true})
     result = Vinyl.execute(global_validator_name)

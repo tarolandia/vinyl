@@ -2,7 +2,7 @@ ENV['RACK_ENV'] = "test"
 require 'bundler/setup'
 #require 'rack/test'
 
-require 'api-acl'
+require 'vinyl'
 
 RSpec.configure do |config|
   #config.include Rack::Test::Methods

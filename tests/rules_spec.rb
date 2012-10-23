@@ -1,6 +1,6 @@
 describe Vinyl::Rule do
 
-  it "should add route to Vinyl. do
+  it "should add route to Vinyl" do
     Vinyl::when_route 'test', :with_method => 'POST', :get_access_level => 1, 
       :if_pass => ['validator']
 
