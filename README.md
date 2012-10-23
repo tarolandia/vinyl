@@ -20,9 +20,19 @@ For example: user A wants to get user B's profile.
 
 In the example we have 3 different levels of access to B information.
 
+## Install
+
+```
+  gem install vinyl
+
+```
+
+
 ## Basic Config
 
 ```ruby
+  require 'vinyl'
+
   Vinyl::configure do |config|
     config.api_acl_mode = Vinyl::Configuration::STRATEGY_DESCENDING
     config.force_access_control = true 
