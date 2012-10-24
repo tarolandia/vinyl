@@ -5,20 +5,20 @@ _by: Federico Saravia Barrantes [@fsaravia](https://github.com/fsaravia) and Lau
 
 ## Introduction
 
-"Vinyl" is a simple gem that allows developer to define different access levels for a resource and a serie of local and global validators to gain access to those levels.
-It works by analizing a series of validators defined by you and returning a number representing the access level a particular request is able to reach.
+"Vinyl" is a simple gem that allows developers to define different access levels for a resource and a series of local and global validators to gain access to those levels.
+It works by analyzing a series of validators defined by you and returning a number representing the access level a particular request is able to reach.
 
 ## What is it useful for?
 
-This gem is useful when you need to control the output depending on who wants to access to a resource.
+This gem is useful when you need to control the output of a process depending on who wants to access to a resource.
 
 For example: user A wants to get user B's profile.
 
-1. If A == B, A have full access to data
-2. If A is friend of B, A can see private data but not config data
-3. If A is not friend of B, A only can see public data
+1. If A == B, then A has full access to data
+2. If A is friend of B, than A can see private data but not config data
+3. If A is not friend of B, then A only can see public data
 
-In the example we have 3 different levels of access to B information.
+In this example we have 3 different levels of access to B's information.
 
 ## Install
 
@@ -33,7 +33,7 @@ In the example we have 3 different levels of access to B information.
 ```ruby
   require 'vinyl'
 
-  Vinyl::configure do |config|
+  Vinyl.configure do |config|
     config.api_acl_mode = Vinyl::Configuration::STRATEGY_DESCENDING
     config.force_access_control = true 
     config.warn_on_missing_validators = true 
@@ -51,7 +51,7 @@ Deny access if no validators are given for a route/method combination and no glo
 
 __:warn_on_missing_validators true/false__
 
-Display a warning on STDOUT when calling a missing validator
+Display a warning on STDOUT when calling a non-existent validator (Missing validators output always default to false)
 
 
 ## Defining Rules
@@ -78,13 +78,26 @@ Vinyl.when_route '/profiles.json',
   :get_access_level => 2, 
   :if_pass => ['is_admin']
 ```
+You can define your routes using a string, they may include wildcards or you can also use regular expressions:
 
+__Example:__
+```ruby
+Vinyl.when_route '/profiles*', 
+  :with_method => 'GET', 
+  :get_access_level => 1, 
+  :if_pass => ['is_user']
+
+Vinyl.when_route /^\/profiles\/(\d+)\.(.+)/, 
+  :with_method => 'GET', 
+  :get_access_level => 1, 
+  :if_pass => ['is_user']
+```
 
 ## Defining validators
 
-There are two kind of validators: global and normal validators. All validators you define must return true or false.
+There are two kinds of validators: global and normal validators. All validators you define must return true or false.
 
-Global validators will be applied to all rules defined. You can add a global validator using add_global_validator method:
+Global validators will be applied to every rule. You can add a global validator using add_global_validator method:
 
 ```ruby
 Vinyl.add_global_validator("name_of_global_validator", lambda {
@@ -129,7 +142,7 @@ Vinyl.reset_variables
 ```
 ## Getting Access Level
 
-At this point you had defined your rules, validators and variables. Now you are ready to get call access level.
+At this point you had defined your rules, validators and variables. Now you are ready to check for the access level.
 
 ```ruby
 access_level = Vinyl.check_level('/call/route','call_method')
