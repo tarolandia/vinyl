@@ -42,6 +42,9 @@ module Vinyl
       @@acl_routes_collection[pattern][method][access_level] = validators
     end
 
+    #The ideas for this method were extracted from Sinatra's source
+    #https://github.com/sinatra/sinatra/blob/master/lib/sinatra/base.rb
+    #Copyright (c) 2007, 2008, 2009, 2010, 2011 Blake Mizerany
     def self.generate_pattern(path)
       if path.respond_to? :to_str
         ignore = ""
