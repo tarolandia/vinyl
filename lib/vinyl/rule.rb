@@ -37,9 +37,9 @@ module Vinyl
         puts e.backtrace
       end
       pattern = generate_pattern(route)
-      @@acl_routes_collection[pattern] ||= Hash.new
-      @@acl_routes_collection[pattern][method] ||= Hash.new
-      @@acl_routes_collection[pattern][method][access_level] = validators
+      @@acl_routes_collection[method] ||= RegExpHash.new
+      @@acl_routes_collection[method][pattern] ||= Hash.new
+      @@acl_routes_collection[method][pattern][access_level] = validators
     end
 
     #The ideas for this method were extracted from Sinatra's source
