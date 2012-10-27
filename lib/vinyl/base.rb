@@ -16,8 +16,7 @@ module Vinyl
     method_routes = Vinyl.acl_routes_collection[method]
     return Vinyl.access_level_with_no_validators if method_routes.nil? || method_routes.empty?
     validators_to_call = method_routes[route]
-    return Vinyl.access_level_with_no_validators if validators_to_call.nil?
-    if validators_to_call.empty?
+    if validators_to_call.nil? || validators_to_call.empty?
       if global_validators.empty?
         return Vinyl.access_level_with_no_validators
       else
