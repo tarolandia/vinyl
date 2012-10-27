@@ -13,12 +13,13 @@ module Vinyl
   end
 
   def self.check_level(route,method)
-    required_route = Vinyl::acl_routes_collection[route]
-    required_route = Hash.new if required_route.nil?
-    validators_to_call = required_route[method]
-    if (validators_to_call.nil? || validators_to_call.empty?) then
-      if (global_validators.empty?) then
-        return Vinyl.config.force_access_control ? 0 : 1
+    method_routes = Vinyl.acl_routes_collection[method]
+    return Vinyl.access_level_with_no_validators if method_routes.nil? || method_routes.empty?
+    validators_to_call = method_routes[route]
+    return Vinyl.access_level_with_no_validators if validators_to_call.nil?
+    if validators_to_call.empty?
+      if global_validators.empty?
+        return Vinyl.access_level_with_no_validators
       else
         validators_to_call = {1 => []} #No access level defined but global validators must be called
       end
@@ -35,6 +36,10 @@ module Vinyl
       end
     end
     return highest_level
+  end
+
+  def self.access_level_with_no_validators
+    return Vinyl.config.force_access_control ? 0 : 1
   end
 
   class Configuration
