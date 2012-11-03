@@ -1,5 +1,5 @@
-# Vinyl
-**_Access Level for him and her_**
+# Vinyl [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/tarolandia/vinyl)
+**_Access Level for him and her_** 
 
 _by: Federico Saravia Barrantes [@fsaravia](https://github.com/fsaravia) and Lautaro Orazi [@tarolandia](https://github.com/tarolandia)_
 
