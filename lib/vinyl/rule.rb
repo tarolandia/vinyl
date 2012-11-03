@@ -27,7 +27,7 @@ module Vinyl
         method = args[0][:with_method]
         access_level = args[0][:get_access_level]
         validators = args[0][:if_pass]
-        if(route.empty? || method.empty? || access_level.to_s.empty?) then
+        if(route.to_s.empty? || method.empty? || access_level.to_s.empty?) then
           raise InvalidAclRule, "Vinyl.rule is invalid"
         end
       rescue NoMethodError => e
